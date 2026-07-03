@@ -1,0 +1,20 @@
+{
+  "name": "saraf-link",
+  "version": "1.0.0",
+  "description": "A Micro-Remittance Tracking Engine",
+  "homepage": "https://github.com/farhadyousefe/Saraf-Link#readme",
+  "bugs": {
+    "url": "https://github.com/farhadyousefe/Saraf-Link/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farhadyousefe/Saraf-Link.git"
+  },
+  "license": "ISC",
+  "author": "Farhad Yousefe",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
