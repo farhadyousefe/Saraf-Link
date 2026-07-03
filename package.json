@@ -18,16 +18,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "debug": "^4.4.3",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "joi": "^18.2.3",
     "mongoose": "^9.7.3"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.13",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.6",
     "@types/joi": "^17.2.2",
     "@types/mongoose": "^5.11.96",
+    "cross-env": "^10.1.0",
     "nodemon": "^3.1.14"
   }
 }
