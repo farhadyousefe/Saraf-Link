@@ -1,6 +1,6 @@
 import express from 'express';
 import Debug from 'debug';
-import { transaction, validateTransaction } from './models/transaction.js';
+import { transaction, validateTransaction } from '../models/transaction.js';
 
 const dbDebug = Debug('app:db');
 dbDebug.color = 2;
