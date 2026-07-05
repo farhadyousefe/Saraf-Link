@@ -1,6 +1,7 @@
 import express from 'express';
 import Debug from 'debug';
-import { transaction, validateTransaction } from '../models/transaction.js';
+import { Transaction, validateTransaction } from '../models/transaction.js';
+import auth from '../middleware/auth.js';
 
 const dbDebug = Debug('app:db');
 dbDebug.color = 2;
@@ -9,7 +10,7 @@ httpDebug.color = 3;
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   httpDebug('A post request is made');
   const { error, value } = validateTransaction(req.body);
 
@@ -19,7 +20,7 @@ router.post('/', async (req, res) => {
       .status(400)
       .send(`Joi Validation Error: ${error.details[0].message}`);
   }
-  const newTransaction = new transaction(value);
+  const newTransaction = new Transaction(value);
   await newTransaction.save();
   return res.status(201).json(newTransaction);
 });
