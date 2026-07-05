@@ -2,7 +2,7 @@ import _ from 'lodash'; // package to pick properties from an object
 import bcrypt from 'bcrypt';
 import express from 'express';
 import Debug from 'debug';
-import { User, validateUser } from '../models/user.js';
+import { User, validateUser } from '../models/User.js';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 
