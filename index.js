@@ -4,9 +4,10 @@ dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import Debug from 'debug';
-import TransactionRouter from './routes/transaction.js';
+import transactionRouter from './routes/transaction.js';
 import errorHandler from './middleware/error.js';
 import authRouter from './routes/auth.js';
+import accountRouter from './routes/accounts.js';
 
 const dbDebug = Debug('app:db');
 dbDebug.color = 2;
@@ -31,8 +32,9 @@ mongoose
   });
 
 app.use(express.json());
-app.use('/api/v1/transactions', TransactionRouter);
+app.use('/api/v1/transactions', transactionRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/accounts', accountRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
