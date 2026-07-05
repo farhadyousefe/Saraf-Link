@@ -19,6 +19,7 @@
     "dev": "cross-env DEBUG=app:* nodemon index.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "debug": "^4.4.3",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
