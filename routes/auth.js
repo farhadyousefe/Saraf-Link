@@ -2,9 +2,9 @@ import _ from 'lodash'; // package to pick properties from an object
 import bcrypt from 'bcrypt';
 import express from 'express';
 import Debug from 'debug';
-import { user, validateUser } from '../models/user.js';
-import { valid } from 'joi';
+import { User, validateUser } from '../models/user.js';
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
 
 const dbDebug = Debug('app:db');
 const httpDebug = Debug('app:http');
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
       .status(400)
       .send(`Joi Valication Error: ${error.details[0].message}`);
   }
-  const dublicateUser = await user.findOne({ email: value.email });
+  const dublicateUser = await User.findOne({ email: value.email });
   if (dublicateUser) {
     dbDebug('User is register in db');
     return res.status(400).send('User is already registered');
@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
   value.password = hashPassword;
   appDebug('Password is encrypted');
 
-  const newUser = new user(value);
+  const newUser = new User(value);
   await newUser.save();
 
   delete newUser.password;
@@ -50,10 +50,10 @@ router.post('/login', async (req, res) => {
       .status(400)
       .send(`Joi Valication Error: ${error.details[0].message}`);
   }
-  const validUser = await user.findOne({ email: value.email });
+  const validUser = await User.findOne({ email: value.email });
   if (!validUser) {
     dbDebug('User email Id is not registered');
-    return res.status(404).send('Invalid email or password.');
+    return res.status(400).send('Invalid email or password.');
   }
   const validPassword = await bcrypt.compare(
     value.password,
@@ -61,8 +61,11 @@ router.post('/login', async (req, res) => {
   );
   if (!validPassword) {
     dbDebug('Entered Password is wrong');
-    return res.status(404).send('Invalid email or password.');
+    return res.status(400).send('Invalid email or password.');
   }
+  httpDebug('user validation is done, user is found in the database');
+  const token = validUser.generateAuthToken();
+  return res.status(200).json({ token });
 });
 
 function validateLogin(user) {
