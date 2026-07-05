@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Debug from 'debug';
 import TransactionRouter from './routes/transaction.js';
+import errorHandler from './middleware/error.js';
 
 const dbDebug = Debug('app:db');
 dbDebug.color = 2;
@@ -24,6 +25,7 @@ mongoose
 
 app.use(express.json());
 app.use('/api/transactions', TransactionRouter);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   httpDebug(`Listening on PORT: ${PORT}`);
