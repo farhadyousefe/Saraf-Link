@@ -1,6 +1,6 @@
 import express from 'express';
 import Debug from 'debug';
-import { Transaction, validateTransaction } from '../models/transaction.js';
+import { Transaction, validateTransaction } from '../models/Transaction.js';
 import auth from '../middleware/auth.js';
 import admin from '../middleware/admin.js';
 
