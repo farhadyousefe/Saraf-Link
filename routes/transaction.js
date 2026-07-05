@@ -2,6 +2,7 @@ import express from 'express';
 import Debug from 'debug';
 import { Transaction, validateTransaction } from '../models/transaction.js';
 import auth from '../middleware/auth.js';
+import admin from '../middleware/admin.js';
 
 const dbDebug = Debug('app:db');
 dbDebug.color = 2;
@@ -23,6 +24,12 @@ router.post('/', auth, async (req, res) => {
   const newTransaction = new Transaction(value);
   await newTransaction.save();
   return res.status(201).json(newTransaction);
+});
+
+router.get('/admin-audit', [auth, admin], async (req, res) => {
+  res
+    .status(200)
+    .send('Welcome to the high-security admin financial audit portal.');
 });
 
 export default router;
