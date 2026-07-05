@@ -17,10 +17,10 @@ router.post('/', async (req, res) => {
   httpDebug('new user registration request is made');
   const { error, value } = validateUser(req.body);
   if (error) {
-    httpDebug(`Joi Valication Error: ${error.details[0].message}`);
+    httpDebug(`Joi Validation Error: ${error.details[0].message}`);
     return res
       .status(400)
-      .send(`Joi Valication Error: ${error.details[0].message}`);
+      .send(`Joi Validation Error: ${error.details[0].message}`);
   }
   const dublicateUser = await User.findOne({ email: value.email });
   if (dublicateUser) {
