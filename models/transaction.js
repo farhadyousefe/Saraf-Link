@@ -29,7 +29,7 @@ const transactionSchema = new mongoose.Schema(
   }
 );
 
-const transaction = mongoose.model('Transaction', transactionSchema);
+const Transaction = mongoose.model('Transaction', transactionSchema);
 
 function validateTransaction(userData) {
   const schema = Joi.object({
@@ -41,4 +41,4 @@ function validateTransaction(userData) {
   return schema.validate(userData);
 }
 
-export { transaction, validateTransaction };
+export { Transaction, validateTransaction };
