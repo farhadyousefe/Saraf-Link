@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import Joi from 'joi';
+import jwt from 'jsonwebtoken';
+import Debug from 'debug';
+const dbDebug = Debug('app:db');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -30,8 +33,25 @@ const userSchema = new mongoose.Schema({
     default: true,
   },
 });
+userSchema.methods.generateAuthToken = function () {
+  const privateKey = process.env.JWT_PRIVATE_KEY;
 
-const user = mongoose.model('User', userSchema);
+  const token = jwt.sign({ _id: this._id, role: this.role }, privateKey);
+  if (token) {
+    dbDebug('Token was generated and used');
+  }
+  return token;
+};
+
+/**
+ * @typedef {mongoose.Document & {
+ *   name: string,
+ *   email: string,
+ *   generateAuthToken: () => string
+ * }} UserInstance
+ */
+
+const User = mongoose.model('user', userSchema);
 
 function validateUser(userData) {
   const schema = Joi.object({
@@ -44,4 +64,4 @@ function validateUser(userData) {
   return schema.validate(userData);
 }
 
-export { user, validateUser };
+export { User, validateUser };
