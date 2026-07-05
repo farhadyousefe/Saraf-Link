@@ -19,14 +19,9 @@ router.post('/', async (req, res) => {
       .status(400)
       .send(`Joi Validation Error: ${error.details[0].message}`);
   }
-  try {
-    const newTransaction = new transaction(value);
-    await newTransaction.save();
-    return res.status(201).json(newTransaction);
-  } catch (error) {
-    httpDebug(`Error in server: ${error.message}`);
-    return res.status(500).send(`Error in server`);
-  }
+  const newTransaction = new transaction(value);
+  await newTransaction.save();
+  return res.status(201).json(newTransaction);
 });
 
 export default router;
