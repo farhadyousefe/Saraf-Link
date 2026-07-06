@@ -4,7 +4,7 @@ dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import Debug from 'debug';
-import transactionRouter from './routes/transaction.js';
+import transactionRouter from './routes/transactions.js';
 import errorHandler from './middleware/error.js';
 import authRouter from './routes/auth.js';
 import accountRouter from './routes/accounts.js';
