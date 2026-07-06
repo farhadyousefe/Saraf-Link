@@ -23,6 +23,12 @@ const transactionSchema = new mongoose.Schema(
       type: String,
       default: 'pending',
     },
+    branchName: {
+      type: String,
+      required: true,
+      tirm: true,
+      minlength: true,
+    },
   },
   {
     timestamps: true,
@@ -37,6 +43,7 @@ function validateTransaction(userData) {
     amount: Joi.number().min(1).required(),
     currency: Joi.string().required().valid('USD', 'INR', 'AFN'),
     status: Joi.string().valid('pending', 'completed', 'failed'),
+    branchName: Joi.string().required().min(3),
   });
   return schema.validate(userData);
 }
