@@ -71,6 +71,20 @@ router.post('/', auth, async (req, res, next) => {
   }
 });
 
+router.get('/', auth, async (req, res, next) => {
+  httpDebug('a transaction history request is made');
+  const limit = parseInt(req.query.limit) || 10;
+  try {
+    const history = await Transaction.find()
+      .sort({ createdAt: -1 })
+      .limit(limit);
+
+    return res.status(200).json(history);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/admin-audit', [auth, admin], async (req, res) => {
   res
     .status(200)
