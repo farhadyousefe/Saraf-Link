@@ -35,7 +35,7 @@ function validateAccount(account) {
     branchName: Joi.string().required().min(3).max(30),
     currency: Joi.string().valid('USD', 'AFN', 'INR').required(),
     currentBalance: Joi.number().default(0),
-    lastUpdatedBy: Joi.string().required(),
+    lastUpdatedBy: Joi.string(),
   });
   return schema.validate(account);
 }
