@@ -14,7 +14,7 @@ httpDebug.color = 3;
 const router = express.Router();
 
 router.post('/', auth, async (req, res, next) => {
-  httpDebug('A post transaction request is made');
+  httpDebug('A transaction post request is made');
   const { error, value } = validateTransaction(req.body);
 
   if (error) {
